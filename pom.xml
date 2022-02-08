@@ -488,6 +488,13 @@
     <tag>HEAD</tag>
   </scm>
 
+  <distributionManagement>
+    <snapshotRepository>
+      <id>EasyDeskSnapshotRepository</id>
+      <name>Internal Snapshot Repository</name>
+      <url>https://easydesk.co.kr/maven/repository/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>  
   
   <build>
     <sourceDirectory>src/java</sourceDirectory>
@@ -825,6 +832,39 @@
             </dependency>
         </dependencies>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>test-jar</goal>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+            <archive>
+              <manifest>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+              </manifest>
+            </archive>
+          </configuration>
+          </execution>
+        </executions>
+      </plugin>            
     </plugins>
   </build>
 
@@ -968,6 +1008,11 @@
       <version>1.0.6</version>
     </dependency>
     <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-pool2</artifactId>
+      <version>2.11.1</version>
+  </dependency>    
+    <dependency>
       <groupId>org.apache.torque</groupId>
       <artifactId>torque-runtime</artifactId>
       <version>${torque.version}</version>
@@ -983,7 +1028,7 @@
          <exclusion><!-- already provided -->
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-1.2-api</artifactId>
-        </exclusion>
+        </exclusion>        
       </exclusions>
     </dependency>
     <!-- use default dbcp2 from torque-runtime -->
@@ -1307,9 +1352,9 @@
     <fulcrum.intake>2.0.0</fulcrum.intake>
     <fulcrum.parser>2.0.1</fulcrum.parser>
     <!--fulcrum.securityafter release change to 2.1.0 -->
-     <fulcrum.security>2.1.0</fulcrum.security>
+     <fulcrum.security>2.1.1-SNAPSHOT</fulcrum.security>
     <fulcrum.yaafi>1.0.9-SNAPSHOT</fulcrum.yaafi>
-    <torque.version>5.0</torque.version>
+    <torque.version>5.1</torque.version>
     <jackson2.version>2.13.1</jackson2.version>
     <doclint>none</doclint>
     <docker.testcontainers.version>1.16.2</docker.testcontainers.version>
@@ -1318,4 +1363,3 @@
   </properties>
 
 </project>
-

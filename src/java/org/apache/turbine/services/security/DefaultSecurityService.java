@@ -1,6 +1,8 @@
 package org.apache.turbine.services.security;
 
 
+import java.security.GeneralSecurityException;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -136,7 +138,8 @@ public class DefaultSecurityService
         }
         catch (Exception e)
         {
-            throw new InitializationException("Failed to instantiate UserManager", e);
+            e.printStackTrace();
+            throw new InitializationException("Failed to instantiate UserManager : [" + userManagerClassName + "]", e);
         }
 
         setInit(true);
@@ -387,12 +390,15 @@ public class DefaultSecurityService
      * @throws PasswordMismatchException if the supplied password was incorrect.
      * @throws UnknownEntityException if the user's account does not
      *            exist in the database.
-     * @throws DataBackendException if there is a problem accessing the storage.
+     * @throws DataBackendException if there is a problem accessing the
+     *            storage.
+     * @throws GeneralSecurityException if there is a problem to validate the
+     *            user. 
      */
     @Override
     public <U extends User> U getAuthenticatedUser(String username, String password)
             throws DataBackendException, UnknownEntityException,
-                   PasswordMismatchException
+                   PasswordMismatchException, GeneralSecurityException
     {
         return getUserManager().retrieve(username, password);
     }

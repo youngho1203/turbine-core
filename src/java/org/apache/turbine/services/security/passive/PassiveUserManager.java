@@ -1,6 +1,8 @@
 package org.apache.turbine.services.security.passive;
 
 
+import java.security.GeneralSecurityException;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -142,13 +144,15 @@ public class PassiveUserManager implements UserManager
      *            exist in the database.
      * @throws DataBackendException if there is a problem accessing the
      *            storage.
+     * @throws GeneralSecurityException if there is a problem to validate the
+     *            user. 
      */
     @Override
     public <U extends User> U retrieve(String username, String password)
             throws PasswordMismatchException, UnknownEntityException,
-            DataBackendException
+            DataBackendException, GeneralSecurityException
     {
-        throw new DataBackendException("PassiveUserManager knows no users");
+        throw new GeneralSecurityException("PassiveUserManager knows no users");
     }
 
     /**
@@ -198,15 +202,15 @@ public class PassiveUserManager implements UserManager
      *            incorrect.
      * @throws UnknownEntityException if the user's record does not
      *            exist in the database.
-     * @throws DataBackendException if there is a problem accessing the
+     * @throws GeneralSecurityException if there is a problem accessing the
      *            storage.
      */
     @Override
     public void authenticate(User user, String password)
             throws PasswordMismatchException, UnknownEntityException,
-            DataBackendException
+            GeneralSecurityException
     {
-        throw new DataBackendException("PassiveUserManager knows no users");
+        throw new GeneralSecurityException("PassiveUserManager knows no users");
     }
 
     /**

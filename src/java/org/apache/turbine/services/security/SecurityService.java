@@ -1,6 +1,8 @@
 package org.apache.turbine.services.security;
 
 
+import java.security.GeneralSecurityException;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -226,14 +228,16 @@ public interface SecurityService
      * @param username The user name.
      * @param password The user password.
      * @return An authenticated Turbine User.
-     * @throws DataBackendException if there was an error accessing the data
-     *         backend.
+     * @throws DataBackendException if there is a problem accessing the
+     *            storage.
+     * @throws GeneralSecurityException if there is a problem to validate the
+     *            user. 
      * @throws UnknownEntityException if user account is not present.
      * @throws PasswordMismatchException if the supplied password was incorrect.
      */
     <U extends User> U getAuthenticatedUser(String username, String password)
             throws DataBackendException, UnknownEntityException,
-            PasswordMismatchException;
+            PasswordMismatchException, GeneralSecurityException;
 
     /**
      * Constructs an User object to represent a registered user of the

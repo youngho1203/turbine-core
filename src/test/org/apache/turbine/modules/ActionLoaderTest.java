@@ -21,6 +21,7 @@ package org.apache.turbine.modules;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
@@ -324,6 +325,7 @@ public class ActionLoaderTest extends BaseTestCase
             ActionLoader.getInstance().exec(pipelineData, data.getAction());
             Context context = (Context)
                             data.getTemplateInfo().getTemplateContext(VelocityService.CONTEXT);
+            assertNotNull(context);
             assertTrue( context.get( "mykey" ) != null );
         }
         catch (Exception e)

@@ -120,7 +120,7 @@ public abstract class BaseTestCase
         when(request.getContextPath()).thenReturn("wow");
         when(request.getContentType()).thenReturn("html/text");
 
-        when(request.getCharacterEncoding()).thenReturn("US-ASCII");
+        when(request.getCharacterEncoding()).thenReturn("UTF-8");
         when(request.getServerPort()).thenReturn(8080);
         when(request.getLocale()).thenReturn(Locale.US);
 

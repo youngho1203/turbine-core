@@ -254,12 +254,22 @@ public abstract class ActionEvent implements Action
                 pp.remove(key);
             }
         }
-
+		
 		try
 		{
-			log.debug("Invoking {}", method);
-
-			method.invoke(this, parameters);
+			boolean canInvoke = false;
+			if(canInvoke((PipelineData)parameters[0], method))
+			{
+				log.debug("Invoking {}", method);
+				canInvoke = true;
+				method.invoke(this, parameters);
+			}
+			if(!canInvoke)
+			{
+				log.debug("Invoking {}", method);
+				method = getMethod(DEFAULT_METHOD, signature, pp);
+				method.invoke(this, parameters);
+			}
 		}
 		catch (InvocationTargetException ite)
 		{
@@ -280,6 +290,19 @@ public abstract class ActionEvent implements Action
 			    log.error("Invokation of {}", method, t);
 			}
 		}
+	}
+
+	/**
+	 * you can override this method for your own check, default return true 
+	 * 
+	 * @param pipelineData
+	 * @param method
+	 * @return true if has permissions or roles
+	 */
+	protected boolean canInvoke(PipelineData pipelineData, Method method)
+		throws Exception
+	{
+		return true;
 	}
 
 	/**
