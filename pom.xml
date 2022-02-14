@@ -487,14 +487,6 @@
     <url>https://github.com/apache/${turbine.site.path}/tree/${project.scm.tag}</url>
     <tag>HEAD</tag>
   </scm>
-
-  <distributionManagement>
-    <snapshotRepository>
-      <id>EasyDeskSnapshotRepository</id>
-      <name>Internal Snapshot Repository</name>
-      <url>https://easydesk.co.kr/maven/repository/snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>  
   
   <build>
     <sourceDirectory>src/java</sourceDirectory>
