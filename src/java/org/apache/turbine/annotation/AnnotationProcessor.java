@@ -56,9 +56,9 @@ public class AnnotationProcessor
     private static ConcurrentMap<String, Annotation[]> annotationCache = new ConcurrentHashMap<>();
 
     /**
-     * Get cached annotations for field, class or method
+     * Get cached annotations for field, constructor or method
      *
-     * @param object a field, class or method
+     * @param object a field, constructor or method
      *
      * @return the declared annotations for the object
      */
@@ -69,6 +69,29 @@ public class AnnotationProcessor
         if (annotations == null)
         {
             Annotation[] newAnnotations = object.getDeclaredAnnotations();
+            annotations = annotationCache.putIfAbsent(key, newAnnotations);
+            if (annotations == null)
+            {
+                annotations = newAnnotations;
+            }
+        }
+        return annotations;
+    }
+
+    /**
+     * Get cached annotations for class
+     *
+     * @param object a class
+     *
+     * @return the declared annotations for the class
+     */
+    public static Annotation[] getAnnotations(Class<?> clazz)
+    {
+        String key = clazz.toString();
+        Annotation[] annotations = annotationCache.get(key);
+        if (annotations == null)
+        {
+            Annotation[] newAnnotations = clazz.getAnnotations();
             annotations = annotationCache.putIfAbsent(key, newAnnotations);
             if (annotations == null)
             {
