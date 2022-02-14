@@ -217,7 +217,7 @@ public interface SecurityService
      * @throws DataBackendException if there was an error accessing the data
      *         backend.
      */
-    boolean accountExists(User user)
+    <U extends User> boolean accountExists(U user)
             throws DataBackendException;
 
     /**
@@ -301,7 +301,7 @@ public interface SecurityService
      * @throws DataBackendException if there is a problem accessing the
      *            storage.
      */
-    void saveOnSessionUnbind(User user)
+    <U extends User> void saveOnSessionUnbind(U user)
             throws UnknownEntityException, DataBackendException;
 
     /*-----------------------------------------------------------------------
@@ -318,7 +318,7 @@ public interface SecurityService
      * @throws EntityExistsException if the user account already exists.
      * @throws UnknownEntityException  if the provided user does not exist (is null)
      */
-    void addUser(User user, String password)
+    <U extends User>  void addUser(U user, String password)
             throws DataBackendException, EntityExistsException, UnknownEntityException;
 
     /**
@@ -329,7 +329,7 @@ public interface SecurityService
      *         backend.
      * @throws UnknownEntityException if the user account is not present.
      */
-    void removeUser(User user)
+    <U extends User> void removeUser(U user)
             throws DataBackendException, UnknownEntityException;
 
     /*-----------------------------------------------------------------------

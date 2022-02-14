@@ -68,7 +68,7 @@ public interface UserManager
      * @throws DataBackendException if there was an error accessing the data
      *         backend.
      */
-    boolean accountExists(User user)
+    <U extends User> boolean accountExists(U user)
             throws DataBackendException;
 
     /**
@@ -113,7 +113,7 @@ public interface UserManager
      * @throws DataBackendException if there is a problem accessing the
      *         storage.
      */
-    List<? extends User> retrieveList(Object criteria)
+    <U extends User> List<U> retrieveList(Object criteria)
         throws DataBackendException;
 
     /**
@@ -147,7 +147,7 @@ public interface UserManager
      *         exist in the database.
      * @throws DataBackendException if there is a problem accessing the storage.
      */
-    void store(User user)
+    <U extends User> void store(U user)
             throws UnknownEntityException, DataBackendException;
 
     /**
@@ -164,7 +164,7 @@ public interface UserManager
      * @throws DataBackendException if there is a problem accessing the
      *            storage.
      */
-    void saveOnSessionUnbind(User user)
+    <U extends User> void saveOnSessionUnbind(U user)
             throws UnknownEntityException, DataBackendException;
 
     /**
@@ -179,7 +179,7 @@ public interface UserManager
      *         exist in the database.
      * @throws GeneralSecurityException if there is a problem accessing the storage.
      */
-    void authenticate(User user, String password)
+    <U extends User> void authenticate(U user, String password)
             throws PasswordMismatchException, UnknownEntityException,
             GeneralSecurityException;
 
@@ -193,7 +193,7 @@ public interface UserManager
      *         backend.
      * @throws EntityExistsException if the user account already exists.
      */
-    void createAccount(User user, String initialPassword)
+    <U extends User> void createAccount(U user, String initialPassword)
             throws UnknownEntityException, EntityExistsException, DataBackendException;
 
     /**
@@ -204,7 +204,7 @@ public interface UserManager
      *         backend.
      * @throws UnknownEntityException if the user account is not present.
      */
-    void removeAccount(User user)
+    <U extends User> void removeAccount(U user)
             throws UnknownEntityException, DataBackendException;
 
     /**
@@ -218,7 +218,7 @@ public interface UserManager
      *         exist in the database.
      * @throws DataBackendException if there is a problem accessing the storage.
      */
-    void changePassword(User user, String oldPassword,
+    <U extends User> void changePassword(U user, String oldPassword,
                         String newPassword)
             throws PasswordMismatchException, UnknownEntityException,
             DataBackendException;
@@ -237,7 +237,7 @@ public interface UserManager
      *            exist in the database.
      * @throws DataBackendException if there is a problem accessing the storage.
      */
-    void forcePassword(User user, String password)
+    <U extends User> void forcePassword(U user, String password)
             throws UnknownEntityException, DataBackendException;
 
     /**
@@ -260,7 +260,7 @@ public interface UserManager
      * @return True if this is an anonymous user
      *
      */
-    boolean isAnonymousUser(User u);
+    <U extends User> boolean isAnonymousUser(U u);
 
     /**
      * Construct a blank User object.
@@ -302,5 +302,5 @@ public interface UserManager
      *             if the implementation of ACL interface could not be
      *             determined, or does not exist.
      */
-    <A extends AccessControlList> A getACL(User user) throws UnknownEntityException;
+    <U extends User, A extends AccessControlList> A getACL(U user) throws UnknownEntityException;
 }

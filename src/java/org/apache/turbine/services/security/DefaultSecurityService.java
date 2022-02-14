@@ -151,6 +151,7 @@ public class DefaultSecurityService
      * @return an object implementing User interface.
      * @throws UnknownEntityException if the object could not be instantiated.
      */
+    @SuppressWarnings("unchecked")
     @Override
     public <U extends User> U getUserInstance()
             throws UnknownEntityException
@@ -158,7 +159,7 @@ public class DefaultSecurityService
         U user;
         try
         {
-            user = getUserManager().getUserInstance();
+            user = (U) getUserManager().getUserInstance();
         }
         catch (DataBackendException e)
         {
@@ -177,6 +178,7 @@ public class DefaultSecurityService
      *
      * @throws UnknownEntityException if the object could not be instantiated.
      */
+    @SuppressWarnings("unchecked")
     @Override
     public <U extends User> U getUserInstance(String userName)
             throws UnknownEntityException
@@ -184,7 +186,7 @@ public class DefaultSecurityService
         U user;
         try
         {
-            user = getUserManager().getUserInstance(userName);
+            user = (U) getUserManager().getUserInstance(userName);
         }
         catch (DataBackendException e)
         {
@@ -342,7 +344,7 @@ public class DefaultSecurityService
     @Override
     public UserManager getUserManager()
     {
-        return userManager;
+        return this.userManager;
     }
 
     /**
@@ -356,7 +358,7 @@ public class DefaultSecurityService
      *         backend.
      */
     @Override
-    public boolean accountExists(User user)
+    public <U extends User> boolean accountExists(U user)
             throws DataBackendException
     {
         return getUserManager().accountExists(user);
@@ -400,7 +402,7 @@ public class DefaultSecurityService
             throws DataBackendException, UnknownEntityException,
                    PasswordMismatchException, GeneralSecurityException
     {
-        return getUserManager().retrieve(username, password);
+        return (U)getUserManager().retrieve(username, password);
     }
 
     /**
@@ -479,7 +481,7 @@ public class DefaultSecurityService
      *            storage.
      */
     @Override
-    public void saveOnSessionUnbind(User user)
+    public <U extends User>  void saveOnSessionUnbind(U user)
             throws UnknownEntityException, DataBackendException
     {
         getUserManager().saveOnSessionUnbind(user);
@@ -496,7 +498,7 @@ public class DefaultSecurityService
      * @throws EntityExistsException if the user account already exists.
      */
     @Override
-    public void addUser(User user, String password)
+    public <U extends User>  void addUser(U user, String password)
             throws UnknownEntityException,DataBackendException, EntityExistsException
     {
         getUserManager().createAccount(user, password);
@@ -511,7 +513,7 @@ public class DefaultSecurityService
      * @throws UnknownEntityException if the user account is not present.
      */
     @Override
-    public void removeUser(User user)
+    public <U extends User> void removeUser(U user)
             throws DataBackendException, UnknownEntityException
     {
         if (user == null) {

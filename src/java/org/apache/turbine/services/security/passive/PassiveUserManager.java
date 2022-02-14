@@ -68,7 +68,7 @@ public class PassiveUserManager implements UserManager
      * @throws DataBackendException if there was an error accessing the data backend.
      */
     @Override
-    public boolean accountExists(User user)
+    public <U extends User> boolean accountExists(U user)
             throws DataBackendException
     {
         throw new DataBackendException("PassiveUserManager knows no users");
@@ -123,7 +123,7 @@ public class PassiveUserManager implements UserManager
      *         storage.
      */
     @Override
-    public List<? extends User> retrieveList(Object criteria)
+    public <U extends User> List<U> retrieveList(Object criteria)
             throws DataBackendException
     {
         throw new DataBackendException("PassiveUserManager knows no users");
@@ -166,7 +166,7 @@ public class PassiveUserManager implements UserManager
      *            storage.
      */
     @Override
-    public void store(User user)
+    public <U extends User> void store(U user)
             throws UnknownEntityException, DataBackendException
     {
         throw new DataBackendException("PassiveUserManager does not support saving user data");
@@ -185,7 +185,7 @@ public class PassiveUserManager implements UserManager
      *            storage.
      */
     @Override
-    public void saveOnSessionUnbind(User user)
+    public <U extends User> void saveOnSessionUnbind(U user)
             throws UnknownEntityException, DataBackendException
     {
         throw new DataBackendException("PassiveUserManager does not support saving user data");
@@ -206,7 +206,7 @@ public class PassiveUserManager implements UserManager
      *            storage.
      */
     @Override
-    public void authenticate(User user, String password)
+    public <U extends User> void authenticate(U user, String password)
             throws PasswordMismatchException, UnknownEntityException,
             GeneralSecurityException
     {
@@ -223,7 +223,7 @@ public class PassiveUserManager implements UserManager
      * @throws EntityExistsException if the user account already exists.
      */
     @Override
-    public void createAccount(User user, String initialPassword)
+    public <U extends User> void createAccount(U user, String initialPassword)
             throws EntityExistsException, DataBackendException
     {
         throw new DataBackendException("PassiveUserManager does not support"
@@ -238,7 +238,7 @@ public class PassiveUserManager implements UserManager
      * @throws UnknownEntityException if the user account is not present.
      */
     @Override
-    public void removeAccount(User user)
+    public <U extends User> void removeAccount(U user)
             throws UnknownEntityException, DataBackendException
     {
         throw new DataBackendException("PassiveUserManager does not support removing accounts");
@@ -258,7 +258,7 @@ public class PassiveUserManager implements UserManager
      *            storage.
      */
     @Override
-    public void changePassword(User user, String oldPassword,
+    public <U extends User> void changePassword(U user, String oldPassword,
                                String newPassword)
             throws PasswordMismatchException, UnknownEntityException,
             DataBackendException
@@ -282,7 +282,7 @@ public class PassiveUserManager implements UserManager
      *            storage.
      */
     @Override
-    public void forcePassword(User user, String password)
+    public <U extends User> void forcePassword(U user, String password)
             throws UnknownEntityException, DataBackendException
     {
         throw new DataBackendException("PassiveUserManager does not support setting passwords");
@@ -297,7 +297,7 @@ public class PassiveUserManager implements UserManager
      *             if the anonymous User object couldn't be constructed.
      */
     @Override
-    public <T extends User> T getAnonymousUser() throws UnknownEntityException
+    public <U extends User> U getAnonymousUser() throws UnknownEntityException
     {
         throw new UnknownEntityException("PassiveUserManager knows no users");
     }
@@ -312,7 +312,7 @@ public class PassiveUserManager implements UserManager
      *
      */
     @Override
-    public boolean isAnonymousUser(User u)
+    public <U extends User> boolean isAnonymousUser(U u)
     {
         return true;
     }
@@ -328,7 +328,7 @@ public class PassiveUserManager implements UserManager
      *             if the object could not be instantiated.
      */
     @Override
-    public <T extends User> T getUserInstance() throws DataBackendException
+    public <U extends User> U getUserInstance() throws DataBackendException
     {
         throw new DataBackendException("PassiveUserManager knows no users");
     }
@@ -347,7 +347,7 @@ public class PassiveUserManager implements UserManager
      *             if the object could not be instantiated.
      */
     @Override
-    public <T extends User> T getUserInstance(String userName) throws DataBackendException
+    public <U extends User> U getUserInstance(String userName) throws DataBackendException
     {
         throw new DataBackendException("PassiveUserManager knows no users");
     }
@@ -362,7 +362,7 @@ public class PassiveUserManager implements UserManager
      *             determined, or does not exist.
      */
     @Override
-    public <T extends AccessControlList> T getACL(User user) throws UnknownEntityException
+    public <U extends User, T extends AccessControlList> T getACL(U user) throws UnknownEntityException
     {
         throw new UnknownEntityException("PassiveUserManager knows no users");
     }
