@@ -56,7 +56,7 @@ public class IntakeTool
     protected static final Logger log = LogManager.getLogger(IntakeTool.class);
 
     /** Constant for default key */
-    public static final String DEFAULT_KEY = "_0";
+    public static final String DEFAULT_KEY = Retrievable.DEFAULT_KEY; // "_0";
 
     /** Constant for the hidden fieldname */
     public static final String INTAKE_GRP = "intake-grp";

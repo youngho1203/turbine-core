@@ -375,10 +375,11 @@ public class DefaultUserManager implements UserManager
      *
      * @throws DataBackendException if there was an error accessing the data backend.
      * @throws EntityExistsException if the user account already exists.
+     * @throws GeneralSecurityException
      */
     @Override
     public <U extends User> void createAccount(U user, String initialPassword)
-            throws UnknownEntityException, EntityExistsException, DataBackendException
+            throws UnknownEntityException, EntityExistsException, DataBackendException, GeneralSecurityException
     {
         if (user == null) {
             throw new UnknownEntityException("user is null");
@@ -415,12 +416,13 @@ public class DefaultUserManager implements UserManager
      *            exist in the database.
      * @throws DataBackendException if there is a problem accessing the
      *            storage.
+     * @throws GeneralSecurityException
      */
     @Override
     public <U extends User> void changePassword(U user, String oldPassword,
                                String newPassword)
             throws PasswordMismatchException, UnknownEntityException,
-            DataBackendException
+            DataBackendException, GeneralSecurityException
     {
         if (user == null) {
             throw new UnknownEntityException("user is null");
@@ -444,10 +446,11 @@ public class DefaultUserManager implements UserManager
      *            exist in the database.
      * @throws DataBackendException if there is a problem accessing the
      *            storage.
+     * @throws GeneralSecurityException
      */
     @Override
     public <U extends User> void forcePassword(U user, String password)
-            throws UnknownEntityException, DataBackendException
+            throws UnknownEntityException, DataBackendException, GeneralSecurityException
     {
         if (user == null) {
             throw new UnknownEntityException("user is null");

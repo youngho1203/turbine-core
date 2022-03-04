@@ -194,7 +194,7 @@ public interface UserManager
      * @throws EntityExistsException if the user account already exists.
      */
     <U extends User> void createAccount(U user, String initialPassword)
-            throws UnknownEntityException, EntityExistsException, DataBackendException;
+            throws UnknownEntityException, EntityExistsException, DataBackendException, GeneralSecurityException;
 
     /**
      * Removes an user account from the system.
@@ -221,7 +221,7 @@ public interface UserManager
     <U extends User> void changePassword(U user, String oldPassword,
                         String newPassword)
             throws PasswordMismatchException, UnknownEntityException,
-            DataBackendException;
+            DataBackendException, GeneralSecurityException;
 
     /**
      * Forcibly sets new password for an User.
@@ -238,7 +238,7 @@ public interface UserManager
      * @throws DataBackendException if there is a problem accessing the storage.
      */
     <U extends User> void forcePassword(U user, String password)
-            throws UnknownEntityException, DataBackendException;
+            throws UnknownEntityException, DataBackendException, GeneralSecurityException;
 
     /**
      * Constructs an User object to represent an anonymous user of the

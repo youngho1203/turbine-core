@@ -1,8 +1,5 @@
 package org.apache.turbine.services.security;
 
-
-import java.security.GeneralSecurityException;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -22,6 +19,7 @@ import java.security.GeneralSecurityException;
  * under the License.
  */
 
+import java.security.GeneralSecurityException;
 
 import org.apache.commons.configuration2.Configuration;
 import org.apache.fulcrum.security.GroupManager;
@@ -496,10 +494,12 @@ public class DefaultSecurityService
      * @throws DataBackendException if there was an error accessing the
      *         data backend.
      * @throws EntityExistsException if the user account already exists.
+     * @throws UnknownEntityException  if the provided user does not exist (is null)
+     * @throws GeneralSecurityException if there was an error when password hashing 
      */
     @Override
     public <U extends User>  void addUser(U user, String password)
-            throws UnknownEntityException,DataBackendException, EntityExistsException
+            throws UnknownEntityException,DataBackendException, EntityExistsException, GeneralSecurityException
     {
         getUserManager().createAccount(user, password);
     }
@@ -534,12 +534,13 @@ public class DefaultSecurityService
      * @throws UnknownEntityException if the user's record does not
      *            exist in the database.
      * @throws DataBackendException if there is a problem accessing the storage.
+     * @throws GeneralSecurityException if there was an error when password hashing
      */
     @Override
     public void changePassword(User user, String oldPassword,
             String newPassword)
             throws PasswordMismatchException, UnknownEntityException,
-                   DataBackendException
+                   DataBackendException, GeneralSecurityException
     {
         getUserManager().changePassword(user, oldPassword, newPassword);
     }
@@ -557,10 +558,11 @@ public class DefaultSecurityService
      * @throws UnknownEntityException if the user's record does not
      *            exist in the database.
      * @throws DataBackendException if there is a problem accessing the storage.
+     * @throws GeneralSecurityException if there was an error when password hashing
      */
     @Override
     public void forcePassword(User user, String password)
-            throws UnknownEntityException, DataBackendException
+            throws UnknownEntityException, DataBackendException, GeneralSecurityException
     {
         getUserManager().forcePassword(user, password);
     }

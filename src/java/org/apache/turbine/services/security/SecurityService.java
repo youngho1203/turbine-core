@@ -1,8 +1,5 @@
 package org.apache.turbine.services.security;
 
-
-import java.security.GeneralSecurityException;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -22,6 +19,7 @@ import java.security.GeneralSecurityException;
  * under the License.
  */
 
+import java.security.GeneralSecurityException;
 
 import org.apache.fulcrum.security.acl.AccessControlList;
 import org.apache.fulcrum.security.entity.Group;
@@ -317,9 +315,10 @@ public interface SecurityService
      *         backend.
      * @throws EntityExistsException if the user account already exists.
      * @throws UnknownEntityException  if the provided user does not exist (is null)
+     * @throws GeneralSecurityException if there was an error when password hashing
      */
-    <U extends User>  void addUser(U user, String password)
-            throws DataBackendException, EntityExistsException, UnknownEntityException;
+    <U extends User> void addUser(U user, String password)
+            throws DataBackendException, EntityExistsException, UnknownEntityException, GeneralSecurityException;
 
     /**
      * Removes an user account from the system.
@@ -348,11 +347,12 @@ public interface SecurityService
      *            exist in the database.
      * @throws DataBackendException if there is a problem accessing the
      *            storage.
+     * @throws GeneralSecurityException if there was an error when password hashing
      */
     void changePassword(User user, String oldPassword,
                         String newPassword)
             throws PasswordMismatchException, UnknownEntityException,
-            DataBackendException;
+            DataBackendException, GeneralSecurityException;
 
     /**
      * Forcibly sets new password for an User.
@@ -368,9 +368,10 @@ public interface SecurityService
      *            exist in the database.
      * @throws DataBackendException if there is a problem accessing the
      *            storage.
+     * @throws GeneralSecurityException if there was an error when password hashing
      */
     void forcePassword(User user, String password)
-            throws UnknownEntityException, DataBackendException;
+            throws UnknownEntityException, DataBackendException, GeneralSecurityException;
 
     /*-----------------------------------------------------------------------
       Retrieval of security information

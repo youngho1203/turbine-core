@@ -24,7 +24,7 @@ package org.apache.turbine;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-
+import static org.junit.Assert.fail;
 import java.io.File;
 import java.net.URL;
 
@@ -86,6 +86,7 @@ public class ConfigurationTest extends BaseTestCase
         }
         catch (Exception e)
         {
+            fail(e.toString());
             throw e;
         }
         finally
@@ -112,6 +113,7 @@ public class ConfigurationTest extends BaseTestCase
         }
         catch (Exception e)
         {
+            fail(e.toString());
             throw e;
         }
         finally
@@ -137,6 +139,7 @@ public class ConfigurationTest extends BaseTestCase
         }
         catch (Exception e)
         {
+            fail(e.toString());
             throw e;
         }
     }
@@ -160,8 +163,10 @@ public class ConfigurationTest extends BaseTestCase
         }
         catch (Exception e)
         {
+            fail(e.toString());
             throw e;
-        } finally
+        } 
+        finally
         {
             tc.dispose();
         }
