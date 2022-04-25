@@ -286,7 +286,7 @@ public interface TurbineConstants
     String PARAMETER_ENCODING_KEY = "input.encoding";
 
     /** Default Encoding for Parameter Parser */
-    String PARAMETER_ENCODING_DEFAULT = StandardCharsets.ISO_8859_1.name();
+    String PARAMETER_ENCODING_DEFAULT = StandardCharsets.UTF_8.name();
 
     /** Default serverName for ServerData */
     String DEFAULT_SERVER_NAME_KEY
