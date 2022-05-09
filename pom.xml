@@ -1347,7 +1347,7 @@
      <fulcrum.security>2.1.1-SNAPSHOT</fulcrum.security>
     <fulcrum.yaafi>1.0.9-SNAPSHOT</fulcrum.yaafi>
     <torque.version>5.1</torque.version>
-    <jackson2.version>2.13.1</jackson2.version>
+    <jackson2.version>2.13.2</jackson2.version>
     <doclint>none</doclint>
     <docker.testcontainers.version>1.16.2</docker.testcontainers.version>
     <jacoco.skip>true</jacoco.skip>
