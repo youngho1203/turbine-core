@@ -1,6 +1,8 @@
 package org.apache.turbine.services.intake;
 
 
+import java.util.Arrays;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -112,11 +114,14 @@ public class IntakeTool
 
         this.pp = ((RunData) runData).getParameters();
 
+        log.debug("IntakeTool init CALL with {}", pp);
+
         String[] groupKeys = pp.getStrings(INTAKE_GRP);
         String[] groupNames = null;
         if (ArrayUtils.isEmpty(groupKeys))
         {
             groupNames = intakeService.getGroupNames();
+            return;
         }
         else
         {
@@ -126,19 +131,20 @@ public class IntakeTool
                 groupNames[i] = intakeService.getGroupName(groupKeys[i]);
             }
         }
-
-        for (int i = groupNames.length - 1; i >= 0; i--)
+        log.debug("IntakeTool init CALL with GroupKeys {}", Arrays.toString(groupNames));
+        for (int i = groupKeys.length - 1; i >= 0; i--)
         {
             try
             {
-                List<Group> foundGroups = intakeService.getGroup(groupNames[i])
-                    .getObjects(pp);
-
-                if (foundGroups != null)
+                String[] oids = pp.getStrings(groupKeys[i], new String[0]);
+                log.debug("GROUP NAME, OBJECT KEYS {}, {}", groupKeys[i], Arrays.toString(oids));
+                for(String oid : oids)
                 {
-                    foundGroups.forEach(
-                            group -> groups.put(group.getObjectKey(), group));
+                    Group group = intakeService.getGroup(groupNames[i]).init(oid, pp);
+                    groups.put(group.getObjectKey(), group);
                 }
+
+                log.debug("GROUPS KEYS {} for {}", groups.keySet(), groupNames[i]);
             }
             catch (IntakeException e)
             {
@@ -241,6 +247,7 @@ public class IntakeTool
     public void refresh()
     {
         // empty
+        recycle();
     }
 
     /**
@@ -507,6 +514,7 @@ public class IntakeTool
     @Override
     public void recycle()
     {
+        log.debug("CALL recycle >>>>");
         disposed = false;
     }
 
@@ -518,6 +526,7 @@ public class IntakeTool
     @Override
     public void dispose()
     {
+        log.debug("CALL dispose >>>> {}", groups.keySet());
         for (Group group : groups.values())
         {
             try
