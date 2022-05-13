@@ -116,8 +116,10 @@ public class VelocityScreen
         // The Template Service could not find the Screen
         if (StringUtils.isEmpty(templateName))
         {
-            log.error("Screen " + screenTemplate + " not found!");
-            throw new Exception("Could not find screen for " + screenTemplate);
+            // log.error("Screen " + screenTemplate + " not found!");
+            // throw new Exception("Could not find screen for " + screenTemplate);
+            log.debug("Screen " + screenTemplate + " not found! Set Default.vm");
+            templateName = "Default.vm";
         }
 
         try

@@ -1032,11 +1032,11 @@
       </exclusions>
     </dependency>
     <!-- use default dbcp2 from torque-runtime -->
-    <dependency>
+    <!-- dependency>
          <groupId>commons-configuration</groupId>
          <artifactId>commons-configuration</artifactId>
          <version>1.10</version>
-    </dependency>
+    </dependency -->
     <dependency>
       <groupId>org.apache.fulcrum</groupId>
       <artifactId>fulcrum-security-api</artifactId>
